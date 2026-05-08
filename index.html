@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patterned Story Book - SLB Bhakti Luhur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="page-home">
+        <header></header>
+        <main class="hero">
+            <div class="hero-text">
+                <h1>Patterned Story Book</h1>
+                <p>Media cerita digital pola berulang berbasis website untuk mendukung pembelajaran literasi siswa Tuna Grahita.</p>
+                <a href="#" class="btn-mulai" onclick="bukaDaftarCerita()">Mulai Membaca ▶</a>
+            </div>
+            <div class="hero-img">
+                <img src="assets/img/beruang.png" alt="Maskot Beruang" id="maskot-beruang" onclick="sambutanBeruang()">
+            </div>
+        </main>
+
+        <div class="carousel-section">
+            <h3>Daftar Cerita</h3>
+            <button class="btn-nav prev" onclick="scrollCarousel(-1)">❮</button>
+            <div class="story-wrapper" id="carousel"></div>
+            <button class="btn-nav next" onclick="scrollCarousel(1)">❯</button>
+        </div>
+    </section>
+
+    <section id="page-daftar-cerita" style="display: none;">
+        <div class="header-daftar">
+            <h1>Daftar Cerita</h1>
+            <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
+        </div>
+        <div class="grid-cerita" id="grid-full"></div>
+        <div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div>
+    </section>
+
+    <section id="page-baca-cerita" style="display: none;">
+        <div class="header-baca">
+            <h2 id="judul-baca">Judul Cerita</h2>
+            <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
+        </div>
+
+        <div class="story-fullscreen-frame" id="story-frame">
+            <div class="btn-audio-overlay" onclick="putarSuaraCerita()"></div>
+            
+            <div id="bubble-teks" class="bubble-teks">
+                <p id="teks-baris-1"></p>
+                <p id="teks-baris-2"></p>
+            </div>
+            
+            <div class="nav-baca-container">
+                <div id="btn-prev" class="btn-story-nav" onclick="prevHalaman()">⬅ Sebelumnya</div>
+                <div id="btn-next" class="btn-story-nav" onclick="nextHalaman()">Selanjutnya ➡</div>
+                <div id="btn-selesai" class="btn-story-nav btn-selesai" onclick="bukaDaftarCerita()">Selesai 🏠</div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="main-footer">
+        <div class="footer-left" onclick="window.open('https://sabkbhaktiluhurmalang.sch.id/', '_blank')">
+            <img src="assets/img/logo_slb.png" alt="Logo SLB">
+            <span>SLB Bhakti Luhur Malang</span>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=100090373661047" target="_blank"><img src="assets/img/fb_icon.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/malangslbbhaktiluhur" target="_blank"><img src="assets/img/ig_icon.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@slbbhaktiluhurmalang" target="_blank"><img src="assets/img/yt_icon.png" alt="YouTube"></a>
+            <a href="https://maps.app.goo.gl/wrXxqUoZJypxgcj47" target="_blank"><img src="assets/img/maps_icon.png" alt="Maps"></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
