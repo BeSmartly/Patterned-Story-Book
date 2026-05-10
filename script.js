@@ -159,22 +159,3 @@ function putarSuaraCerita() {
 function nextHalaman() { if (halamanSekarang < 9) { halamanSekarang++; renderHalaman(); } }
 function prevHalaman() { if (halamanSekarang > 0) { halamanSekarang--; renderHalaman(); } }
 function scrollCarousel(dir) { carousel.scrollBy({ left: dir * 250, behavior: 'smooth' }); }
-
-// ==========================================
-// 7. FITUR SAMBUTAN (DENGAN IZIN BROWSER)
-// ==========================================
-let sambutanSudahDiputar = false;
-
-function putarSambutanOtomatis() {
-    if (!sambutanSudahDiputar) {
-        sambutanBeruang();
-        sambutanSudahDiputar = true;
-        // Hapus listener agar tidak berulang setiap kali klik
-        window.removeEventListener('click', putarSambutanOtomatis);
-        window.removeEventListener('touchstart', putarSambutanOtomatis);
-    }
-}
-
-// Suara akan muncul saat pengguna pertama kali klik atau sentuh layar HP
-window.addEventListener('click', putarSambutanOtomatis);
-window.addEventListener('touchstart', putarSambutanOtomatis);
