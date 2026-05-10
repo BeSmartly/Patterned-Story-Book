@@ -58,6 +58,15 @@ daftarCerita.forEach(item => {
         </div>`;
 });
 
+// Fungsi untuk menghilangkan overlay dan langsung memutar suara sambutan
+function masukKeWeb() {
+    const overlay = document.getElementById('overlay-mulai');
+    overlay.style.display = 'none'; // Menghilangkan layar biru
+    
+    // Langsung memutar suara beruang
+    sambutanBeruang(); 
+}
+
 // ==========================================
 // 4. FUNGSI NAVIGASI HALAMAN
 // ==========================================
