@@ -35,7 +35,7 @@ let halamanSekarang = 0;
 let dataHalamanAktif = [];
 let judulAktif = "";
 let prefixGambar = "";
-let audioAktif = null; // Penjaga agar suara tidak tabrakan
+let audioAktif = null; 
 
 // ==========================================
 // 3. INITIAL RENDER (MENAMPILKAN KARTU)
@@ -44,13 +44,11 @@ const carousel = document.getElementById('carousel');
 const gridFull = document.getElementById('grid-full');
 
 daftarCerita.forEach(item => {
-    // Kartu di Carousel Beranda
     carousel.innerHTML += `
         <div class="card" onclick="bukaDaftarCerita()">
             <img src="${item.img}">
             <h4>${item.title}</h4>
         </div>`;
-    // Kartu di Halaman Daftar Cerita (Grid)
     gridFull.innerHTML += `
         <div class="card">
             <img src="${item.img}">
@@ -79,8 +77,6 @@ function kembaliKeHome() {
 
 function mulaiBaca(id) {
     halamanSekarang = 0;
-    
-    // Pilih data berdasarkan ID
     if (id === 1) { dataHalamanAktif = isiCeritaKucing; judulAktif = "Lari-Lari di Rumput!"; prefixGambar = "kucing_lari_"; }
     else if (id === 2) { dataHalamanAktif = isiCeritaKelinci; judulAktif = "Nyam! Wortelnya Enak"; prefixGambar = "kelinci_wortel_"; }
     else if (id === 3) { dataHalamanAktif = isiCeritaBebek; judulAktif = "Huhu... Bebek Sedih"; prefixGambar = "bebek_sedih_"; }
@@ -99,36 +95,32 @@ function mulaiBaca(id) {
 }
 
 function renderHalaman() {
-    hentikanAudio(); // Stop suara lama saat ganti halaman
-
+    hentikanAudio(); 
     const data = dataHalamanAktif[halamanSekarang];
     const frame = document.getElementById('story-frame');
     const bubble = document.getElementById('bubble-teks');
     
-    // Path Gambar ke folder assets/img/
     frame.style.backgroundImage = `url('assets/img/${prefixGambar}${halamanSekarang + 1}.jpeg')`;
-    
     document.getElementById('teks-baris-1').innerText = data.p1;
     document.getElementById('teks-baris-2').innerText = data.p2;
     document.getElementById('judul-baca').innerText = judulAktif;
 
-    // Posisi Bubble Teks
     bubble.className = (halamanSekarang % 2 === 0) ? "bubble-teks bubble-kiri" : "bubble-teks bubble-kanan";
 
-    // Kontrol Tombol Navigasi
     document.getElementById('btn-prev').style.visibility = (halamanSekarang === 0) ? 'hidden' : 'visible';
     document.getElementById('btn-next').style.display = (halamanSekarang === 9) ? 'none' : 'block';
     document.getElementById('btn-selesai').style.display = (halamanSekarang === 9) ? 'block' : 'none';
 }
 
 // ==========================================
-// 5. LOGIKA AUDIO (PENGAMBILAN DARI ASSETS/AUDIO)
+// 5. LOGIKA AUDIO
 // ==========================================
 
 function mainkanAudio(path) {
     hentikanAudio();
     audioAktif = new Audio(path);
-    audioAktif.play().catch(e => console.log("Audio belum ada: " + path));
+    // Tambahkan catch untuk menghindari error jika autoplay diblokir browser
+    audioAktif.play().catch(e => console.log("Audio autoplay diblokir oleh browser. Klik layar untuk memulai."));
 }
 
 function hentikanAudio() {
@@ -140,13 +132,14 @@ function hentikanAudio() {
 
 function sambutanBeruang() {
     const beruang = document.getElementById('maskot-beruang');
-    beruang.classList.add('animate-bounce');
-    mainkanAudio('assets/audio/selamat_datang.mp3');
-    setTimeout(() => beruang.classList.remove('animate-bounce'), 500);
+    if (beruang) {
+        beruang.classList.add('animate-bounce');
+        mainkanAudio('assets/audio/selamat_datang.mp3');
+        setTimeout(() => beruang.classList.remove('animate-bounce'), 500);
+    }
 }
 
 function putarSuaraCerita() {
-    // Path Audio ke folder assets/audio/
     const pathSuara = `assets/audio/${prefixGambar}${halamanSekarang + 1}.mp3`;
     mainkanAudio(pathSuara);
 }
@@ -157,3 +150,13 @@ function putarSuaraCerita() {
 function nextHalaman() { if (halamanSekarang < 9) { halamanSekarang++; renderHalaman(); } }
 function prevHalaman() { if (halamanSekarang > 0) { halamanSekarang--; renderHalaman(); } }
 function scrollCarousel(dir) { carousel.scrollBy({ left: dir * 250, behavior: 'smooth' }); }
+
+// ==========================================
+// 7. FITUR AUTOPLAY SAMBUTAN SAAT LOAD
+// ==========================================
+window.addEventListener('load', () => {
+    // Memberikan sedikit delay agar transisi halaman selesai baru suara muncul
+    setTimeout(() => {
+        sambutanBeruang();
+    }, 1000); // 1 detik setelah loading selesai
+});
