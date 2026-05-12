@@ -2,12 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Patterned Story Book - SLB Bhakti Luhur</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="overlay-mulai">
         <div class="overlay-content">
             <img src="assets/img/beruang.png" alt="Beruang">
@@ -17,7 +18,13 @@
     </div>
 
     <section id="page-home">
-        <header></header>
+        <div class="menu-container">
+            <div class="dots-btn" onclick="toggleMenu()">⋮</div>
+            <div id="dropdown-menu" class="dropdown-content">
+                <a href="#" onclick="bukaTimPengembang()">Tim Pengembang</a>
+            </div>
+        </div>
+
         <main class="hero">
             <div class="hero-text">
                 <h1>Patterned Story Book</h1>
@@ -31,9 +38,11 @@
 
         <div class="carousel-section">
             <h3>Daftar Cerita</h3>
-            <button class="btn-nav prev" onclick="scrollCarousel(-1)">❮</button>
-            <div class="story-wrapper" id="carousel"></div>
-            <button class="btn-nav next" onclick="scrollCarousel(1)">❯</button>
+            <div class="carousel-container">
+                <button class="btn-nav prev" onclick="scrollCarousel(-1)">❮</button>
+                <div class="story-wrapper" id="carousel"></div>
+                <button class="btn-nav next" onclick="scrollCarousel(1)">❯</button>
+            </div>
         </div>
     </section>
 
@@ -43,7 +52,9 @@
             <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
         </div>
         <div class="grid-cerita" id="grid-full"></div>
-        <div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div>
+        <div class="footer-nav">
+            <div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div>
+        </div>
     </section>
 
     <section id="page-baca-cerita" style="display: none;">
@@ -65,6 +76,33 @@
                 <div id="btn-next" class="btn-story-nav" onclick="nextHalaman()">Selanjutnya ➡</div>
                 <div id="btn-selesai" class="btn-story-nav btn-selesai" onclick="bukaDaftarCerita()">Selesai 🏠</div>
             </div>
+        </div>
+    </section>
+
+    <section id="page-tim-pengembang" style="display: none;">
+        <div class="header-daftar">
+            <h1>Tim Pengembang</h1>
+            <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="assets/img/fotorahma.jpeg" alt="Siti Rachmawati">
+                <h3>Siti Rachmawati</h3>
+                <p>Mahasiswa D4 Perpustakaan Digital 2022 - Fakultas Vokasi</p>
+                <span>Universitas Negeri Malang</span>
+            </div>
+
+            <div class="team-card">
+                <img src="assets/img/fotoadi.jpeg" alt="Adi Prasetyawan">
+                <h3>Adi Prasetyawan, S.Sos, M.A.</h3>
+                <p>Dosen Pembimbing</p>
+                <span>Universitas Negeri Malang</span>
+            </div>
+        </div>
+        
+        <div class="footer-nav">
+            <div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div>
         </div>
     </section>
 
