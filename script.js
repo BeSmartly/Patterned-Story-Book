@@ -159,3 +159,27 @@ function putarSuaraCerita() {
 function nextHalaman() { if (halamanSekarang < 9) { halamanSekarang++; renderHalaman(); } }
 function prevHalaman() { if (halamanSekarang > 0) { halamanSekarang--; renderHalaman(); } }
 function scrollCarousel(dir) { carousel.scrollBy({ left: dir * 250, behavior: 'smooth' }); }
+
+// Fungsi menampilkan/menyembunyikan menu pop-up
+function toggleMenu() {
+    const menu = document.getElementById('dropdown-menu');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+// Menutup menu jika klik di luar area menu
+window.onclick = function(event) {
+    if (!event.target.matches('.dots-btn')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = "none";
+        }
+    }
+}
+
+// Navigasi ke Halaman Tim Pengembang
+function bukaTimPengembang() {
+    document.getElementById('page-home').style.display = 'none';
+    document.getElementById('page-daftar-cerita').style.display = 'none';
+    document.getElementById('page-baca-cerita').style.display = 'none';
+    document.getElementById('page-tim-pengembang').style.display = 'block';
+}
