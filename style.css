@@ -348,3 +348,25 @@ footer {
     .team-card img { width: 130px; height: 130px; }
     .team-card h3 { font-size: 1.3rem; }
 }
+
+/* TAMBAHKAN INI UNTUK STYLING IKON SOSMED TIM */
+.team-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.team-social img {
+    /* Menggunakan !important untuk memastikan ukuran ikon tidak mengikuti foto profil */
+    width: 25px !important;
+    height: 25px !important;
+    border-radius: 0 !important; 
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    transition: transform 0.2s;
+}
+
+.team-social img:hover {
+    transform: scale(1.2);
+}
