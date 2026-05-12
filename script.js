@@ -74,6 +74,7 @@ function bukaDaftarCerita() {
     document.getElementById('page-home').style.display = 'none';
     document.getElementById('page-daftar-cerita').style.display = 'block';
     document.getElementById('page-baca-cerita').style.display = 'none';
+    document.getElementById('page-tim-pengembang').style.display = 'none';
     document.getElementById('main-footer').style.display = 'flex';
 }
 
@@ -82,6 +83,7 @@ function kembaliKeHome() {
     document.getElementById('page-home').style.display = 'block';
     document.getElementById('page-daftar-cerita').style.display = 'none';
     document.getElementById('page-baca-cerita').style.display = 'none';
+    document.getElementById('page-tim-pengembang').style.display = 'none';
 }
 
 function mulaiBaca(id) {
@@ -99,6 +101,7 @@ function mulaiBaca(id) {
 
     document.getElementById('page-daftar-cerita').style.display = 'none';
     document.getElementById('page-baca-cerita').style.display = 'flex';
+    document.getElementById('page-tim-pengembang').style.display = 'none';
     document.getElementById('main-footer').style.display = 'none';
     renderHalaman();
 }
