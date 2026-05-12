@@ -84,6 +84,7 @@ function kembaliKeHome() {
     document.getElementById('page-daftar-cerita').style.display = 'none';
     document.getElementById('page-baca-cerita').style.display = 'none';
     document.getElementById('page-tim-pengembang').style.display = 'none';
+    document.getElementById('main-footer').style.display = 'flex';
 }
 
 function mulaiBaca(id) {
@@ -185,4 +186,5 @@ function bukaTimPengembang() {
     document.getElementById('page-daftar-cerita').style.display = 'none';
     document.getElementById('page-baca-cerita').style.display = 'none';
     document.getElementById('page-tim-pengembang').style.display = 'block';
+    document.getElementById('main-footer').style.display = 'flex';
 }
