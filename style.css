@@ -228,7 +228,7 @@ footer {
     .hero-img img { width: 250px; margin-bottom: 20px; }
     .btn-mulai { width: 100%; font-size: 1.2rem; padding: 15px 20px; }
 
-    /* Carousel */
+    .carousel-section { padding-top: 40px !important; }
     .carousel-section h3 { font-size: 1.8rem; text-align: center; }
     .story-wrapper .card { min-width: 180px; height: 200px; }
 
