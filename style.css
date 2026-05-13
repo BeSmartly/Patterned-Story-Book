@@ -26,38 +26,48 @@ body {
 .hero { 
     display: flex; 
     align-items: center; 
-    padding: 60px 5%; 
+    padding: 60px 5% 20px 5%; 
     justify-content: space-between; 
 }
 .hero-text h1 { font-size: 3.4rem; margin-bottom: 15px; }
 .hero-text p { font-size: 1.3rem; line-height: 1.6; max-width: 600px; }
 .hero-img img { width: 420px; height: auto; cursor: pointer; }
 
-/* TOMBOL MULAI MEMBACA */
+/* REVISI: Penyesuaian tombol agar berfungsi sebagai judul bagian */
 .btn-mulai {
     display: inline-block;
     background-color: var(--kuning-aksen);
-    padding: 18px 45px;
+    padding: 15px 40px; /* Sedikit diperkecil agar proporsional sebagai judul */
     border-radius: 50px;
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-size: 1.5rem;
-    margin-top: 30px;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    font-size: 1.8rem; /* Ukuran font disesuaikan agar tetap terlihat seperti judul */
+    margin-bottom: 25px; /* Memberi jarak ke konten di bawahnya */
+    border: none; /* Menghilangkan garis tepi default tombol */
+    cursor: pointer;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
+/* Pastikan efek timbul tetap berjalan saat kursor mendekat */
 .btn-mulai:hover {
     background-color: #e6a100;
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px) scale(1.05); /* Efek timbul sesuai permintaan sebelumnya */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Hilangkan margin-top agar tidak terlalu jauh dari bagian atas */
+.carousel-section .btn-mulai {
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 /* ==========================================
    CAROUSEL DAFTAR CERITA
    ========================================== */
 .carousel-section {
-    padding: 40px 5%;
+    padding: 10px 5% 40px 5%;;
     position: relative;
 }
 .carousel-section h3 { font-size: 2.3rem; margin-bottom: 25px; }
