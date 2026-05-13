@@ -44,6 +44,15 @@
                 <button class="btn-nav next" onclick="scrollCarousel(1)">❯</button>
             </div>
         </div>
+
+        <div class="carousel-section">
+            <h3>Pias Kata</h3>
+            <div class="carousel-container">
+                <button class="btn-nav prev" onclick="scrollCarouselPias(-1)">❮</button>
+                <div class="story-wrapper" id="carousel-pias"></div>
+                <button class="btn-nav next" onclick="scrollCarouselPias(1)">❯</button>
+            </div>
+        </div>
     </section>
 
     <section id="page-daftar-cerita" style="display: none;">
@@ -79,29 +88,49 @@
         </div>
     </section>
 
+    <section id="page-daftar-pias" style="display: none;">
+        <div class="header-daftar">
+            <h1>Pias Cerita</h1>
+            <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
+        </div>
+        
+        <p class="deskripsi-pias">
+            Pias Kata adalah rangkaian pola kalimat sederhana yang disusun secara berulang untuk membantumu belajar membaca dan memahami cerita dengan cara yang lebih seru!
+        </p>
+    
+        <div class="grid-cerita" id="grid-pias"></div>
+        <div class="footer-nav"><div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div></div>
+    </section>
+
+    <section id="page-baca-pias" style="display: none;">
+        <div class="header-baca">
+            <h2 id="judul-pias">Pias Cerita - Level</h2>
+            <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
+        </div>
+    
+        <div class="story-fullscreen-frame pias-bg" id="pias-frame" onclick="revealNextPias()">
+            <div id="pias-container" class="pias-layout"></div>
+            
+            <div class="btn-floating-kembali" onclick="bukaDaftarPias()">⬅ Kembali</div>
+        </div>
+    </section>
+
     <section id="page-tim-pengembang" style="display: none;">
         <div class="header-daftar">
             <h1>Tim Pengembang</h1>
             <img src="assets/img/home.png" alt="Beranda" class="home-icon" onclick="kembaliKeHome()">
         </div>
-        
         <div class="team-grid">
             <div class="team-card">
                 <img src="assets/img/fotorahma.jpeg" alt="Siti Rachmawati">
                 <h3>Siti Rachmawati</h3>
                 <p>Mahasiswa D4 Perpustakaan Digital 2022 - Fakultas Vokasi</p>
                 <span>Universitas Negeri Malang</span>
-                
                 <div class="team-social">
-                    <a href="https://www.instagram.com/rachawma/" target="_blank">
-                        <img src="assets/img/ig_icon.png" alt="Instagram">
-                    </a>
-                    <a href="https://www.linkedin.com/in/siti-rachmawati" target="_blank">
-                        <img src="assets/img/linkedin.png" alt="LinkedIn">
-                    </a>
+                    <a href="https://www.instagram.com/rachawma/" target="_blank"><img src="assets/img/ig_icon.png" alt="Instagram"></a>
+                    <a href="https://www.linkedin.com/in/siti-rachmawati" target="_blank"><img src="assets/img/linkedin.png" alt="LinkedIn"></a>
                 </div>
             </div>
-
             <div class="team-card">
                 <img src="assets/img/fotoadi.jpeg" alt="Adi Prasetyawan">
                 <h3>Adi Prasetyawan, S.Sos, M.A.</h3>
@@ -109,7 +138,6 @@
                 <span>Universitas Negeri Malang</span>
             </div>
         </div>
-        
         <div class="footer-nav">
             <div class="btn-kembali" onclick="kembaliKeHome()">⬅ Kembali</div>
         </div>
