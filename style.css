@@ -174,7 +174,14 @@ body {
 }
 .btn-selesai { background: var(--kuning-aksen); color: white; }
 
-.home-icon { width: 48px; height: 48px; cursor: pointer; }
+.home-icon { 
+    width: 45px !important; 
+    height: 45px !important; 
+    max-width: 45px; 
+    object-fit: contain; 
+    cursor: pointer; 
+}
+
 .btn-kembali {
     display: block; width: fit-content; margin: 40px auto; padding: 12px 25px;
     background: white; border-radius: 12px; font-weight: bold;
@@ -369,4 +376,207 @@ footer {
 
 .team-social img:hover {
     transform: scale(1.2);
+}
+
+/* REVISI: Pastikan card-pias memiliki position relative */
+.card-pias {
+    min-width: 320px; 
+    width: 320px;
+    height: 180px;
+    aspect-ratio: 16 / 9;
+    background: white;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden; /* Memotong teks agar pas dengan lengkungan kartu */
+    position: relative; /* Kunci agar teks h4 bisa diatur posisinya di dalam */
+    transition: transform 0.2s;
+}
+
+/* REVISI: Menempatkan teks Level di dalam kartu bagian bawah */
+.card-pias h4 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(45, 93, 167, 0.08); /* Warna biru transparan sangat tipis */
+    padding: 10px 0;
+    margin: 0 !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--biru-tua);
+}
+
+/* Mengatur agar gambar pinguin tetap di tengah dan tidak tertutup teks */
+.card-pias img {
+    width: 130px !important;
+    height: 130px !important;
+    object-fit: contain;
+    margin-bottom: 20px !important; /* Memberi ruang agar tidak tabrakan dengan teks di bawah */
+}
+
+.card-pias:hover {
+    transform: scale(1.03); /* Agar efek hover sama dengan Daftar Cerita */
+}
+
+/* Layout Pias Kata */
+.pias-layout {
+    display: flex;
+    flex-direction: column; /* Berurutan ke bawah */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.pias-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Kotak Pias (Default: Transparan) */
+.pias-box {
+    background: rgba(255, 255, 255, 0.4); /* Kotak sedikit transparan */
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px 30px;
+    min-width: 120px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pias-box span {
+    font-size: 3rem;
+    font-weight: 400;
+    color: rgba(45, 93, 167, 0.3); /* Huruf transparan */
+    text-transform: uppercase;
+}
+
+/* State Aktif (Setelah Diklik) */
+.pias-box.active {
+    background: white;
+    border: 3px solid var(--biru-tua);
+    animation: bounceEffect 0.4s ease; /* Tambahkan animasi bounce */
+}
+
+@keyframes bounceEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
+}
+
+.pias-box.active span {
+    color: var(--biru-tua);
+    font-weight: 800; /* Tampilan bold */
+}
+
+@media (max-width: 768px) {
+    .pias-box span { font-size: 1.8rem; }
+    .pias-box { padding: 10px 15px; min-width: 80px; }
+}
+
+.deskripsi-pias {
+    padding: 0 5%;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--biru-tua);
+    max-width: 850px;
+}
+
+@media (min-width: 992px) {
+    #grid-pias {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 40px;
+        padding: 20px 5%;
+    }
+}
+
+#grid-pias .card {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#grid-pias .card img {
+    width: 300px !important;
+    height: auto !important;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+#grid-pias .card h4 {
+    font-size: 1.6rem; 
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: var(--biru-tua);
+}
+
+#page-baca-pias {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Mengatur header di atas, gambar di bawah */
+}
+
+.btn-floating-kembali {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    color: var(--biru-tua);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 20;
+    transition: transform 0.2s;
+}
+
+.btn-floating-kembali:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+#page-baca-pias .story-fullscreen-frame {
+    width: auto;
+    flex-grow: 1;
+}
+
+.btn-play:hover, 
+.btn-mulai:hover, 
+.btn-kembali:hover, 
+.btn-floating-kembali:hover, 
+.btn-story-nav:hover,
+.btn-nav:hover {
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease;
+}
+
+.home-icon:hover, 
+.dots-btn:hover {
+    transform: scale(1.2) translateY(-3px);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    transition: all 0.3s ease;
+}
+
+.social-icons a img:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.1); 
 }
