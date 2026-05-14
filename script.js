@@ -148,7 +148,7 @@ function mulaiPias(id) {
     hideAllPages();
     document.getElementById('page-baca-pias').style.display = 'flex';
     document.getElementById('main-footer').style.display = 'none';
-    document.getElementById('judul-pias').innerText = `Pias Cerita - ${levelPiasAktif.title}`;
+    document.getElementById('judul-pias').innerText = `Pias Kata - ${levelPiasAktif.title}`;
     renderPiasContent();
 }
 
@@ -175,7 +175,9 @@ function renderPiasContent() {
 function revealNextPias() {
     const nextBox = document.querySelector('.pias-box:not(.active)');
     if (nextBox) {
-        nextBox.classList.add('active'); 
+        nextBox.classList.add('active');
+        const sukuKata = nextBox.querySelector('span').innerText.toLowerCase();
+        mainkanAudio(`assets/audio/${sukuKata}.mp3`);
     }
 }
 
