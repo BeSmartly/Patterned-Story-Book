@@ -620,3 +620,35 @@ footer {
     transform: scale(1.1) translateY(-2px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
+
+/* KODE TAMBAHAN: Mengatur Posisi dan Ukuran Logo Web */
+.logo-web-container {
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    z-index: 10;
+}
+
+.logo-web {
+    height: 50px; /* Atur tinggi logo sesuai kecocokan tampilan */
+    width: auto;
+    border-radius: 10px; /* Membuat sudut foto sedikit melengkung agar rapi */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Efek timbul saat kursor mendekat sesuai tema web Anda */
+.logo-web:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Penyesuaian saat dibuka di HP */
+@media (max-width: 768px) {
+    .logo-web {
+        height: 40px; /* Ukuran sedikit lebih kecil di HP */
+    }
+    .logo-web-container {
+        top: 15px;
+    }
+}
