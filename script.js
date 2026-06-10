@@ -44,6 +44,8 @@ let prefixGambar = "";
 let audioAktif = null; 
 let levelPiasAktif = null;
 let indexItemPias = 0;
+let timerDiamKlik = null;
+let timerSembunyiKlik = null;
 
 // ==========================================
 // 3. RENDER AWAL (CAROUSEL & GRID)
@@ -82,18 +84,23 @@ function masukKeWeb() {
 
 function kembaliKeHome() {
     hentikanAudio();
+    hentikanPetunjukKlik();
     hideAllPages();
     document.getElementById('page-home').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
 }
 
 function bukaDaftarCerita() {
+    hentikanAudio();
+    hentikanPetunjukKlik();
     hideAllPages();
     document.getElementById('page-daftar-cerita').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
 }
 
 function bukaDaftarPias() {
+    hentikanAudio();
+    hentikanPetunjukKlik();
     hideAllPages();
     document.getElementById('page-daftar-pias').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -103,6 +110,7 @@ function bukaDaftarPias() {
 // 5. LOGIKA BACA CERITA
 // ==========================================
 function mulaiBaca(id) {
+    hentikanAudio();
     halamanSekarang = 0;
     if (id === 1) { dataHalamanAktif = isiCeritaKucing; prefixGambar = "kucing_lari_"; judulAktif = "Lari-Lari di Rumput!"; }
     else if (id === 2) { dataHalamanAktif = isiCeritaKelinci; prefixGambar = "kelinci_wortel_"; judulAktif = "Nyam! Wortelnya Enak"; }
@@ -134,10 +142,68 @@ function renderHalaman() {
     document.getElementById('btn-prev').style.visibility = (halamanSekarang === 0) ? 'hidden' : 'visible';
     document.getElementById('btn-next').style.display = (halamanSekarang === 9) ? 'none' : 'block';
     document.getElementById('btn-selesai').style.display = (halamanSekarang === 9) ? 'block' : 'none';
+    hentikanPetunjukKlik();
+    tampilkanPetunjukKlik();
+    mulaiTimerDiamKlik();
 }
 
-function nextHalaman() { if (halamanSekarang < 9) { halamanSekarang++; renderHalaman(); } }
-function prevHalaman() { if (halamanSekarang > 0) { halamanSekarang--; renderHalaman(); } }
+function tampilkanPetunjukKlik() {
+    const petunjuk = document.getElementById('petunjuk-klik');
+    if (!petunjuk) return;
+
+    clearTimeout(timerSembunyiKlik);
+
+    petunjuk.style.display = 'block';
+
+    timerSembunyiKlik = setTimeout(() => {
+        petunjuk.style.display = 'none';
+    }, 3000);
+}
+
+function mulaiTimerDiamKlik() {
+    clearTimeout(timerDiamKlik);
+
+    timerDiamKlik = setTimeout(() => {
+        const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
+
+        if (halamanCeritaAktif) {
+            tampilkanPetunjukKlik();
+            mulaiTimerDiamKlik();
+        }
+    }, 10000);
+}
+
+function resetTimerDiamKlik() {
+    const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
+
+    if (halamanCeritaAktif) {
+        mulaiTimerDiamKlik();
+    }
+}
+
+function hentikanPetunjukKlik() {
+    clearTimeout(timerDiamKlik);
+    clearTimeout(timerSembunyiKlik);
+
+    const petunjuk = document.getElementById('petunjuk-klik');
+    if (petunjuk) petunjuk.style.display = 'none';
+}
+
+function nextHalaman() {
+    if (halamanSekarang < 9) {
+        hentikanAudio();
+        halamanSekarang++;
+        renderHalaman();
+    }
+}
+
+function prevHalaman() {
+    if (halamanSekarang > 0) {
+        hentikanAudio();
+        halamanSekarang--;
+        renderHalaman();
+    }
+}
 
 // ==========================================
 // 6. LOGIKA PIAS KATA (KLIK GAMBAR REVEAL)
@@ -200,6 +266,8 @@ function toggleMenu() {
 }
 
 function bukaTimPengembang() {
+    hentikanAudio();
+    hentikanPetunjukKlik();
     hideAllPages();
     document.getElementById('page-tim-pengembang').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -215,3 +283,7 @@ window.onclick = function(event) {
 
 function scrollCarousel(dir) { document.getElementById('carousel').scrollBy({ left: dir * 250, behavior: 'smooth' }); }
 function scrollCarouselPias(dir) { document.getElementById('carousel-pias').scrollBy({ left: dir * 250, behavior: 'smooth' }); }
+
+['click', 'mousemove', 'keydown', 'touchstart'].forEach(eventName => {
+    document.addEventListener(eventName, resetTimerDiamKlik);
+});
