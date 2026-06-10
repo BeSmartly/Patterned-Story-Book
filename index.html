@@ -80,7 +80,7 @@
                 <p id="teks-baris-2"></p>
             </div>
 
-            <img src="assets/img/klik.gif" alt="Petunjuk klik" id="petunjuk-klik">
+            <img src="assets/img/klik_sound.gif" alt="Petunjuk klik suara" id="petunjuk-klik">
             
             <div class="nav-baca-container">
                 <div id="btn-prev" class="btn-story-nav" onclick="prevHalaman()">⬅ Sebelumnya</div>
@@ -112,8 +112,10 @@
     
         <div class="story-fullscreen-frame pias-bg" id="pias-frame" onclick="revealNextPias()">
             <div id="pias-container" class="pias-layout"></div>
+
+            <img src="assets/img/klik.gif" alt="Petunjuk klik pias" id="petunjuk-klik-pias">
             
-            <div class="btn-floating-kembali" onclick="bukaDaftarPias()">⬅ Kembali</div>
+            <div class="btn-floating-kembali" onclick="event.stopPropagation(); bukaDaftarPias()">⬅ Kembali</div>
         </div>
     </section>
 
