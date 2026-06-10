@@ -184,26 +184,6 @@ body {
 }
 .btn-selesai { background: var(--kuning-aksen); color: white; }
 
-#petunjuk-klik {
-    position: absolute;
-    left: 50%;
-    bottom: 22%;
-    transform: translateX(-50%);
-    width: 270px;
-    height: auto;
-    z-index: 30;
-    display: none;
-    pointer-events: none;
-    opacity: 1;
-}
-
-@media (max-width: 768px) {
-    #petunjuk-klik {
-        width: 195px;
-        bottom: 24%;
-    }
-}
-
 .home-icon { 
     width: 45px !important; 
     height: 45px !important; 
@@ -639,4 +619,42 @@ footer {
 .btn-floating-kembali:active {
     transform: scale(1.1) translateY(-2px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+/* ==========================================
+   PETUNJUK KLIK HALAMAN CERITA
+   File: assets/img/klik_sound.gif
+   ========================================== */
+#petunjuk-klik {
+    position: absolute;
+    left: 50%;
+    bottom: 22%;
+    transform: translateX(-50%);
+    width: 270px;
+    height: auto;
+    z-index: 30;
+    display: none;
+    pointer-events: none;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    #petunjuk-klik {
+        width: 195px;
+        bottom: 24%;
+    }
+}
+
+/* ==========================================
+   PETUNJUK KLIK PIAS KATA
+   File: assets/img/klik.gif
+   ========================================== */
+#petunjuk-klik-pias {
+    position: absolute;
+    width: 80px;
+    height: auto;
+    z-index: 35;
+    display: none;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
 }
