@@ -44,8 +44,15 @@ let prefixGambar = "";
 let audioAktif = null; 
 let levelPiasAktif = null;
 let indexItemPias = 0;
+
+// Timer petunjuk klik halaman cerita
 let timerDiamKlik = null;
 let timerSembunyiKlik = null;
+let halamanSudahDiklik = false;
+
+// Timer petunjuk klik halaman Pias Kata
+let timerDiamKlikPias = null;
+let timerSembunyiKlikPias = null;
 
 // ==========================================
 // 3. RENDER AWAL (CAROUSEL & GRID)
@@ -85,6 +92,7 @@ function masukKeWeb() {
 function kembaliKeHome() {
     hentikanAudio();
     hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
     hideAllPages();
     document.getElementById('page-home').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -93,6 +101,7 @@ function kembaliKeHome() {
 function bukaDaftarCerita() {
     hentikanAudio();
     hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
     hideAllPages();
     document.getElementById('page-daftar-cerita').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -101,6 +110,7 @@ function bukaDaftarCerita() {
 function bukaDaftarPias() {
     hentikanAudio();
     hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
     hideAllPages();
     document.getElementById('page-daftar-pias').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -111,6 +121,8 @@ function bukaDaftarPias() {
 // ==========================================
 function mulaiBaca(id) {
     hentikanAudio();
+    hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
     halamanSekarang = 0;
     if (id === 1) { dataHalamanAktif = isiCeritaKucing; prefixGambar = "kucing_lari_"; judulAktif = "Lari-Lari di Rumput!"; }
     else if (id === 2) { dataHalamanAktif = isiCeritaKelinci; prefixGambar = "kelinci_wortel_"; judulAktif = "Nyam! Wortelnya Enak"; }
@@ -142,51 +154,15 @@ function renderHalaman() {
     document.getElementById('btn-prev').style.visibility = (halamanSekarang === 0) ? 'hidden' : 'visible';
     document.getElementById('btn-next').style.display = (halamanSekarang === 9) ? 'none' : 'block';
     document.getElementById('btn-selesai').style.display = (halamanSekarang === 9) ? 'block' : 'none';
+
+    // Tampilkan petunjuk klik suara saat halaman cerita baru terbuka.
+    // setTimeout dipakai agar klik tombol Play/Selanjutnya/Sebelumnya tidak langsung mematikan animasi.
     hentikanPetunjukKlik();
-    tampilkanPetunjukKlik();
-    mulaiTimerDiamKlik();
-}
-
-function tampilkanPetunjukKlik() {
-    const petunjuk = document.getElementById('petunjuk-klik');
-    if (!petunjuk) return;
-
-    clearTimeout(timerSembunyiKlik);
-
-    petunjuk.style.display = 'block';
-
-    timerSembunyiKlik = setTimeout(() => {
-        petunjuk.style.display = 'none';
-    }, 3000);
-}
-
-function mulaiTimerDiamKlik() {
-    clearTimeout(timerDiamKlik);
-
-    timerDiamKlik = setTimeout(() => {
-        const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
-
-        if (halamanCeritaAktif) {
-            tampilkanPetunjukKlik();
-            mulaiTimerDiamKlik();
-        }
-    }, 10000);
-}
-
-function resetTimerDiamKlik() {
-    const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
-
-    if (halamanCeritaAktif) {
+    setTimeout(() => {
+        halamanSudahDiklik = false;
+        tampilkanPetunjukKlik();
         mulaiTimerDiamKlik();
-    }
-}
-
-function hentikanPetunjukKlik() {
-    clearTimeout(timerDiamKlik);
-    clearTimeout(timerSembunyiKlik);
-
-    const petunjuk = document.getElementById('petunjuk-klik');
-    if (petunjuk) petunjuk.style.display = 'none';
+    }, 100);
 }
 
 function nextHalaman() {
@@ -206,9 +182,64 @@ function prevHalaman() {
 }
 
 // ==========================================
+// 5B. PETUNJUK KLIK HALAMAN CERITA
+// ==========================================
+function tampilkanPetunjukKlik() {
+    const petunjuk = document.getElementById('petunjuk-klik');
+    if (!petunjuk) return;
+
+    clearTimeout(timerSembunyiKlik);
+    petunjuk.style.display = 'block';
+
+    // File GIF tampil 3 detik, lalu disembunyikan.
+    timerSembunyiKlik = setTimeout(() => {
+        petunjuk.style.display = 'none';
+    }, 3000);
+}
+
+function mulaiTimerDiamKlik() {
+    clearTimeout(timerDiamKlik);
+
+    timerDiamKlik = setTimeout(() => {
+        const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
+
+        if (halamanCeritaAktif && halamanSudahDiklik === false) {
+            tampilkanPetunjukKlik();
+            mulaiTimerDiamKlik();
+        }
+    }, 10000);
+}
+
+function resetTimerDiamKlik() {
+    const halamanCeritaAktif = document.getElementById('page-baca-cerita').style.display !== 'none';
+
+    if (halamanCeritaAktif) {
+        halamanSudahDiklik = true;
+        clearTimeout(timerDiamKlik);
+        clearTimeout(timerSembunyiKlik);
+
+        const petunjuk = document.getElementById('petunjuk-klik');
+        if (petunjuk) petunjuk.style.display = 'none';
+    }
+}
+
+function hentikanPetunjukKlik() {
+    clearTimeout(timerDiamKlik);
+    clearTimeout(timerSembunyiKlik);
+
+    const petunjuk = document.getElementById('petunjuk-klik');
+    if (petunjuk) petunjuk.style.display = 'none';
+}
+
+
+// ==========================================
 // 6. LOGIKA PIAS KATA (KLIK GAMBAR REVEAL)
 // ==========================================
 function mulaiPias(id) {
+    hentikanAudio();
+    hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
+
     levelPiasAktif = dataPias.find(p => p.id === id);
     indexItemPias = 0;
     hideAllPages();
@@ -236,16 +267,87 @@ function renderPiasContent() {
         });
         container.appendChild(row);
     });
+
+    hentikanPetunjukKlikPias();
+    setTimeout(() => {
+        tampilkanPetunjukKlikPias();
+        mulaiTimerDiamKlikPias();
+    }, 100);
 }
 
 function revealNextPias() {
     const nextBox = document.querySelector('.pias-box:not(.active)');
+
     if (nextBox) {
+        hentikanPetunjukKlikPias();
+
         nextBox.classList.add('active');
+
         const sukuKata = nextBox.querySelector('span').innerText.toLowerCase();
         mainkanAudio(`assets/audio/${sukuKata}.mp3`);
+
+        // Jangan langsung tampilkan animasi di shape berikutnya.
+        // Tunggu 10 detik jika user belum klik lagi.
+        const masihAdaBoxBelumAktif = document.querySelector('.pias-box:not(.active)');
+        if (masihAdaBoxBelumAktif) {
+            mulaiTimerDiamKlikPias();
+        }
     }
 }
+
+// ==========================================
+// 6B. PETUNJUK KLIK PIAS KATA
+// ==========================================
+function tampilkanPetunjukKlikPias() {
+    const petunjuk = document.getElementById('petunjuk-klik-pias');
+    const frame = document.getElementById('pias-frame');
+    const targetBox = document.querySelector('.pias-box:not(.active)');
+
+    if (!petunjuk || !frame || !targetBox) return;
+
+    clearTimeout(timerSembunyiKlikPias);
+
+    const boxRect = targetBox.getBoundingClientRect();
+    const frameRect = frame.getBoundingClientRect();
+
+    const posisiKiri = boxRect.left - frameRect.left + (boxRect.width / 2);
+    const posisiAtas = boxRect.top - frameRect.top + (boxRect.height / 2);
+
+    petunjuk.style.left = posisiKiri + 'px';
+    petunjuk.style.top = posisiAtas + 'px';
+
+    // Ukuran animasi mengikuti ukuran shape.
+    petunjuk.style.width = Math.min(boxRect.width * 0.65, 120) + 'px';
+    petunjuk.style.display = 'block';
+
+    // File GIF tampil 3 detik, lalu disembunyikan.
+    timerSembunyiKlikPias = setTimeout(() => {
+        petunjuk.style.display = 'none';
+    }, 3000);
+}
+
+function mulaiTimerDiamKlikPias() {
+    clearTimeout(timerDiamKlikPias);
+
+    timerDiamKlikPias = setTimeout(() => {
+        const halamanPiasAktif = document.getElementById('page-baca-pias').style.display !== 'none';
+        const masihAdaBoxBelumAktif = document.querySelector('.pias-box:not(.active)');
+
+        if (halamanPiasAktif && masihAdaBoxBelumAktif) {
+            tampilkanPetunjukKlikPias();
+            mulaiTimerDiamKlikPias();
+        }
+    }, 2000);
+}
+
+function hentikanPetunjukKlikPias() {
+    clearTimeout(timerDiamKlikPias);
+    clearTimeout(timerSembunyiKlikPias);
+
+    const petunjuk = document.getElementById('petunjuk-klik-pias');
+    if (petunjuk) petunjuk.style.display = 'none';
+}
+
 
 // ==========================================
 // 7. AUDIO, MENU, & UTILITY
@@ -268,6 +370,7 @@ function toggleMenu() {
 function bukaTimPengembang() {
     hentikanAudio();
     hentikanPetunjukKlik();
+    hentikanPetunjukKlikPias();
     hideAllPages();
     document.getElementById('page-tim-pengembang').style.display = 'block';
     document.getElementById('main-footer').style.display = 'flex';
@@ -284,6 +387,7 @@ window.onclick = function(event) {
 function scrollCarousel(dir) { document.getElementById('carousel').scrollBy({ left: dir * 250, behavior: 'smooth' }); }
 function scrollCarouselPias(dir) { document.getElementById('carousel-pias').scrollBy({ left: dir * 250, behavior: 'smooth' }); }
 
-['click', 'mousemove', 'keydown', 'touchstart'].forEach(eventName => {
+// User dianggap sudah memberi respons pada halaman cerita jika melakukan klik/sentuh.
+['click', 'touchstart'].forEach(eventName => {
     document.addEventListener(eventName, resetTimerDiamKlik);
 });
